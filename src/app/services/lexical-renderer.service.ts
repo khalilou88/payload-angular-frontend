@@ -3,7 +3,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 interface LexicalNode {
   type: string;
-  version: number;
+  version?: number;
   [key: string]: any;
 }
 

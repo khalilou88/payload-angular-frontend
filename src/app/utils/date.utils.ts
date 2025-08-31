@@ -2,7 +2,7 @@ export class DateUtils {
   static formatDate(date: string | Date, format: 'short' | 'long' | 'medium' = 'medium'): string {
     const dateObj = typeof date === 'string' ? new Date(date) : date;
 
-    const options: Intl.DateTimeFormatOptions = {
+    const formatMap: Record<string, Intl.DateTimeFormatOptions> = {
       short: { year: 'numeric', month: 'short', day: 'numeric' },
       medium: { year: 'numeric', month: 'long', day: 'numeric' },
       long: {
@@ -12,7 +12,9 @@ export class DateUtils {
         hour: '2-digit',
         minute: '2-digit',
       },
-    }[format];
+    };
+
+    const options = formatMap[format];
 
     return dateObj.toLocaleDateString('en-US', options);
   }
