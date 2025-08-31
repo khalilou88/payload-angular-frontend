@@ -4,6 +4,7 @@ import { RouterModule, Router } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
 import { Header, User } from '../../types/payload.types';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -136,7 +137,7 @@ import { Observable } from 'rxjs';
                     </div>
 
                     <a
-                      href="/admin"
+                      [href]="adminUrl"
                       target="_blank"
                       rel="noopener noreferrer"
                       class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -260,6 +261,8 @@ export class HeaderComponent implements OnInit {
   showUserMenu = signal(false);
   showSearch = signal(false);
   isDarkMode = signal(false);
+
+  protected readonly adminUrl = environment.adminUrl;
 
   ngOnInit() {
     this.loadHeaderData();

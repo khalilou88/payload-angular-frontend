@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
 import { Footer } from '../../types/payload.types';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-footer',
@@ -106,7 +107,7 @@ import { Footer } from '../../types/payload.types';
               <ul class="space-y-3">
                 <li>
                   <a
-                    href="/admin"
+                    [href]="adminUrl"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors"
@@ -193,6 +194,8 @@ export class FooterComponent implements OnInit {
 
   footerData = signal<Footer | null>(null);
   currentYear = new Date().getFullYear();
+
+  protected readonly adminUrl = environment.adminUrl;
 
   ngOnInit() {
     this.loadFooterData();
