@@ -5,6 +5,7 @@ import { SeoService } from '../../services/seo.service';
 import { Page } from '../../types/payload.types';
 import { LayoutRendererComponent } from '../../components/layout-renderer/layout-renderer.component';
 import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-block.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -71,7 +72,7 @@ import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-bloc
               management with beautiful design.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/admin" target="_blank" rel="noopener noreferrer" class="btn-primary">
+              <a [href]="adminUrl" target="_blank" rel="noopener noreferrer" class="btn-primary">
                 Open Admin Panel
                 <svg
                   class="ml-2 -mr-1 h-5 w-5"
@@ -109,6 +110,8 @@ export class HomeComponent implements OnInit {
   page = signal<Page | null>(null);
   isLoading = signal(true);
   error = signal<string | null>(null);
+
+  protected readonly adminUrl = environment.adminUrl;
 
   ngOnInit() {
     this.loadHomePage();

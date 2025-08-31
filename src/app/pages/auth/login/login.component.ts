@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../../services/payload-api.service';
 import { SeoService } from '../../../services/seo.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -201,7 +202,7 @@ import { SeoService } from '../../../services/seo.service';
         <div class="mt-8 text-center">
           <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Need admin access?</p>
           <a
-            href="/admin"
+            [href]="adminUrl"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
@@ -231,6 +232,8 @@ export class LoginComponent implements OnInit {
   isLoading = signal(false);
   showPassword = signal(false);
   error = signal<string | null>(null);
+
+  protected readonly adminUrl = environment.adminUrl;
 
   ngOnInit() {
     this.initializeForm();
