@@ -6,7 +6,6 @@ import {
 import {
   PreloadAllModules,
   provideRouter,
-  withEnabledBlockingInitialNavigation,
   withInMemoryScrolling,
   withPreloading,
 } from '@angular/router';
@@ -23,7 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(
       routes,
-      withEnabledBlockingInitialNavigation(),
       withInMemoryScrolling({
         scrollPositionRestoration: 'top',
         anchorScrolling: 'enabled',

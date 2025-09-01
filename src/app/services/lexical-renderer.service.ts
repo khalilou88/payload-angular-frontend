@@ -240,8 +240,8 @@ export class LexicalRendererService {
       return (node as TextNode).text || '';
     }
 
-    if ('children' in node && Array.isArray(node.children)) {
-      return node.children.map((child) => this.extractTextFromNode(child)).join(' ');
+    if ('children' in node && Array.isArray(node['children'])) {
+      return node['children'].map((child) => this.extractTextFromNode(child)).join(' ');
     }
 
     return '';

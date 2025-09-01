@@ -178,8 +178,8 @@ import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-bloc
                       @if (relatedPost.hero?.media) {
                         <div class="aspect-w-16 aspect-h-9 overflow-hidden">
                           <img
-                            [src]="getImageUrl(relatedPost.hero.media)"
-                            [alt]="relatedPost.hero.media.alt || relatedPost.title"
+                            [src]="getImageUrl(relatedPost.hero?.media)"
+                            [alt]="relatedPost.hero?.media?.alt || relatedPost.title"
                             class="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
                             loading="lazy"
                           />

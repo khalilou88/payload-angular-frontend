@@ -23,8 +23,8 @@ import { ArchiveBlock, Post } from '../../../types/payload.types';
                   @if (post.hero?.media) {
                     <div class="aspect-w-16 aspect-h-9 overflow-hidden">
                       <img
-                        [src]="getImageUrl(post.hero.media)"
-                        [alt]="post.hero.media.alt || post.title"
+                        [src]="getImageUrl(post.hero?.media)"
+                        [alt]="post.hero?.media?.alt || post.title"
                         class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />

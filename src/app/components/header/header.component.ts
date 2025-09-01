@@ -5,11 +5,12 @@ import { PayloadApiService } from '../../services/payload-api.service';
 import { Header, User } from '../../types/payload.types';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { SearchModalComponent } from '../search-modal/search-modal.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SearchModalComponent],
   template: `
     <header
       class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/80"

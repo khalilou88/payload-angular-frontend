@@ -65,8 +65,9 @@ export class App implements OnInit {
     }
   }
 
-  handleKeyboardShortcut(event: KeyboardEvent) {
-    if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+  handleKeyboardShortcut(event: Event) {
+    const keyboardEvent = event as KeyboardEvent;
+    if ((keyboardEvent.metaKey || keyboardEvent.ctrlKey) && keyboardEvent.key === 'k') {
       event.preventDefault();
       // Dispatch custom event for search modal
       if (isPlatformBrowser(this.platformId)) {

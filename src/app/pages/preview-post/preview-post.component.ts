@@ -1,12 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-block.component';
+import { LayoutRendererComponent } from '../../components/layout-renderer/layout-renderer.component';
 import { PayloadApiService } from '../../services/payload-api.service';
 import { SeoService } from '../../services/seo.service';
-import { LexicalRendererService } from '../../services/lexical-renderer.service';
 import { Post } from '../../types/payload.types';
-import { LayoutRendererComponent } from '../../components/layout-renderer/layout-renderer.component';
-import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-block.component';
 
 @Component({
   selector: 'app-preview-post',

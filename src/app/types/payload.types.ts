@@ -95,6 +95,7 @@ export interface ContentBlock extends LayoutBlock {
       };
       url?: string;
       label: string;
+      newTab?: boolean;
     };
   }>;
 }
@@ -142,24 +143,7 @@ export interface Page {
   title: string;
   slug: string;
   meta?: SEO;
-  hero?: {
-    type: 'default' | 'minimal' | 'fullscreen';
-    richText?: any; // Lexical JSON
-    media?: Media;
-    links?: Array<{
-      link: {
-        type: 'reference' | 'custom';
-        reference?: {
-          relationTo: string;
-          value: string | Page | Post;
-        };
-        url?: string;
-        label: string;
-        appearance?: 'primary' | 'secondary' | 'outline';
-        newTab?: boolean;
-      };
-    }>;
-  };
+  hero?: HeroBlock;
   layout?: LayoutBlocks[];
   publishedAt?: string;
   _status?: 'draft' | 'published';
@@ -172,11 +156,7 @@ export interface Post {
   title: string;
   slug: string;
   meta?: SEO;
-  hero?: {
-    type: 'default' | 'minimal' | 'fullscreen';
-    richText?: any; // Lexical JSON
-    media?: Media;
-  };
+  hero?: HeroBlock;
   layout?: LayoutBlocks[];
   categories?: Category[];
   publishedAt?: string;
