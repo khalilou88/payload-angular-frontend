@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
 import { SeoService } from '../../services/seo.service';
@@ -17,7 +17,7 @@ import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-bloc
 
 @Component({
   selector: 'app-blog-post',
-  imports: [CommonModule, RouterModule, LayoutRendererComponent, HeroBlockComponent],
+  imports: [RouterModule, LayoutRendererComponent, HeroBlockComponent],
   template: `
     @if (post(); as postData) {
       <article class="bg-white dark:bg-gray-900">

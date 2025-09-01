@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,7 +15,7 @@ import { Post } from '../../types/payload.types';
 
 @Component({
   selector: 'app-preview-post',
-  imports: [CommonModule, RouterModule, LayoutRendererComponent, HeroBlockComponent],
+  imports: [RouterModule, LayoutRendererComponent, HeroBlockComponent],
   template: `
     <!-- Preview Banner -->
     <div class="bg-blue-100 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800">

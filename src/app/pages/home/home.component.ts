@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { PayloadApiService } from '../../services/payload-api.service';
 import { SeoService } from '../../services/seo.service';
 import { Page } from '../../types/payload.types';
@@ -16,7 +16,7 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, LayoutRendererComponent, HeroBlockComponent],
+  imports: [LayoutRendererComponent, HeroBlockComponent],
   template: `
     @if (page(); as pageData) {
       <!-- Hero Section -->

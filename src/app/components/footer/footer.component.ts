@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
 import { Footer } from '../../types/payload.types';
@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-footer',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     <footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
       <div class="container-custom">

@@ -5,12 +5,12 @@ import {
   ViewEncapsulation,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SeoService } from '../../../services/seo.service';
 
 @Component({
   selector: 'app-terms',
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="py-16 md:py-24 bg-white dark:bg-gray-900">
       <div class="container-custom">

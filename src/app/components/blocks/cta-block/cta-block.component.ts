@@ -5,14 +5,14 @@ import {
   ViewEncapsulation,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { LexicalRendererService } from '../../../services/lexical-renderer.service';
 import { CallToActionBlock } from '../../../types/payload.types';
 
 @Component({
   selector: 'app-cta-block',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     @if (cta) {
       <section

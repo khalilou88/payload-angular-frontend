@@ -5,13 +5,13 @@ import {
   ViewEncapsulation,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-not-found',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     <div class="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
       <div class="text-center max-w-2xl mx-auto px-4">

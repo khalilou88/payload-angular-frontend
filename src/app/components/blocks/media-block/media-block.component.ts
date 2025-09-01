@@ -5,13 +5,13 @@ import {
   ViewEncapsulation,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { LexicalRendererService } from '../../../services/lexical-renderer.service';
 import { MediaBlock } from '../../../types/payload.types';
 
 @Component({
   selector: 'app-media-block',
-  imports: [CommonModule],
+  imports: [],
   template: `
     @if (mediaBlock && mediaBlock.media) {
       <section [class]="getSectionClasses()">

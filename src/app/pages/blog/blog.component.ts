@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
 import { SeoService } from '../../services/seo.service';
@@ -15,7 +15,7 @@ import { Post, Category, PayloadResponse } from '../../types/payload.types';
 
 @Component({
   selector: 'app-blog',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     <div class="bg-white dark:bg-gray-900">
       <!-- Header -->

@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
 import { Header, User } from '../../types/payload.types';
@@ -18,7 +18,7 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, RouterModule, SearchModalComponent],
+  imports: [RouterModule, SearchModalComponent],
   template: `
     <header
       class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/80"

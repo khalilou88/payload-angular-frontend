@@ -5,14 +5,14 @@ import {
   ViewEncapsulation,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { LexicalRendererService } from '../../../services/lexical-renderer.service';
 import { HeroBlock } from '../../../types/payload.types';
 
 @Component({
   selector: 'app-hero-block',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     @if (hero) {
       <section class="relative overflow-hidden" [class]="getHeroClasses()">

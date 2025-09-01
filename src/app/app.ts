@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { HeaderComponent } from './components/header/header.component';
@@ -14,7 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   template: `
     <div class="min-h-screen flex flex-col bg-white dark:bg-gray-900">
       <app-header />

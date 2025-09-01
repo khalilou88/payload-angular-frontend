@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../../services/payload-api.service';
@@ -15,7 +15,7 @@ import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule],
   template: `
     <div
       class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8"

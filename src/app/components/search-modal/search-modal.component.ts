@@ -12,7 +12,7 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
@@ -23,7 +23,7 @@ import { Subject, of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-modal',
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [FormsModule, RouterModule],
   template: `
     <div class="p-6">
       <!-- Search Header -->

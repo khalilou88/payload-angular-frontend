@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { LayoutBlocks } from '../../types/payload.types';
 import { HeroBlockComponent } from '../blocks/hero-block/hero-block.component';
 import { ContentBlockComponent } from '../blocks/content-block/content-block.component';
@@ -10,7 +10,6 @@ import { ArchiveBlockComponent } from '../blocks/archive-block/archive-block.com
 @Component({
   selector: 'app-layout-renderer',
   imports: [
-    CommonModule,
     HeroBlockComponent,
     ContentBlockComponent,
     MediaBlockComponent,

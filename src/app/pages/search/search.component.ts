@@ -6,14 +6,14 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
 import { SearchResult } from '../../types/payload.types';
 
 @Component({
   selector: 'app-search',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     <div class="py-16 md:py-24 bg-white dark:bg-gray-900">
       <div class="container-custom">

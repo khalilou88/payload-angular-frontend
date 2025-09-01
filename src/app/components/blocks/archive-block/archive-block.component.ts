@@ -7,7 +7,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../../services/payload-api.service';
 import { LexicalRendererService } from '../../../services/lexical-renderer.service';
@@ -15,7 +15,7 @@ import { ArchiveBlock, Post } from '../../../types/payload.types';
 
 @Component({
   selector: 'app-archive-block',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     @if (archive) {
       <section class="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">

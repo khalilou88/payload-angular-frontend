@@ -5,14 +5,14 @@ import {
   ViewEncapsulation,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { LexicalRendererService } from '../../../services/lexical-renderer.service';
 import { ContentBlock } from '../../../types/payload.types';
 
 @Component({
   selector: 'app-content-block',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     @if (content && content.columns) {
       <section class="py-16 md:py-24">
