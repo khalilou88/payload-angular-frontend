@@ -105,6 +105,27 @@ export const routes: Routes = [
       import('./pages/static/terms/terms.component').then((m) => m.TermsComponent),
   },
 
+  // Error pages
+  {
+    path: 'error',
+    loadComponent: () =>
+      import('./pages/error/generic-error/generic-error.component').then(
+        (m) => m.GenericErrorComponent,
+      ),
+  },
+  {
+    path: '500',
+    loadComponent: () =>
+      import('./pages/error/server-error/server-error.component').then(
+        (m) => m.ServerErrorComponent,
+      ),
+  },
+  {
+    path: 'offline',
+    loadComponent: () =>
+      import('./pages/error/offline/offline.component').then((m) => m.OfflineComponent),
+  },
+
   // Dynamic page routes (must be last)
   {
     path: ':slug',
