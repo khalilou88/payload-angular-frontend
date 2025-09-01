@@ -29,6 +29,7 @@ export interface User {
   id: string;
   name?: string;
   email: string;
+  avatar?: Media;
   roles?: string[];
   createdAt: string;
   updatedAt: string;

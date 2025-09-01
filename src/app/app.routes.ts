@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { PayloadApiService } from './services/payload-api.service';
 
 export const routes: Routes = [
   // Home page
@@ -55,6 +58,16 @@ export const routes: Routes = [
       import('./pages/auth/reset-password/reset-password.component').then(
         (m) => m.ResetPasswordComponent,
       ),
+  },
+
+  // Profile route
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./pages/profile/profile.component').then((m) => m.ProfileComponent),
+    canActivate: [
+      () => inject(PayloadApiService).isAuthenticated() || inject(Router).navigate(['/login']),
+    ],
   },
 
   // Preview routes

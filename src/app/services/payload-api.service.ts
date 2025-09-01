@@ -349,6 +349,35 @@ export class PayloadApiService {
     return this.currentUserSubject.value;
   }
 
+  // Profile Management Methods
+  updateProfile(userData: Partial<User>): Observable<User> {
+    return this.http
+      .patch<User>(`${this.baseUrl}/users/me`, userData, {
+        headers: this.getAuthHeaders(),
+      })
+      .pipe(
+        tap((user) => {
+          this.currentUserSubject.next(user);
+        }),
+        catchError(this.handleError),
+      );
+  }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<{ message: string }> {
+    return this.http
+      .post<{ message: string }>(
+        `${this.baseUrl}/users/change-password`,
+        {
+          currentPassword,
+          newPassword,
+        },
+        {
+          headers: this.getAuthHeaders(),
+        },
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   // File Upload Method
   uploadFile(file: File, alt?: string): Observable<Media> {
     const formData = new FormData();
