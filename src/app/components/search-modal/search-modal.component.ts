@@ -3,13 +3,13 @@ import {
   inject,
   signal,
   computed,
-  ViewChild,
   ElementRef,
   AfterViewInit,
   OnDestroy,
   ViewEncapsulation,
   ChangeDetectionStrategy,
   output,
+  viewChild,
 } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
@@ -286,7 +286,7 @@ import { Subject, of, Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchModalComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+  readonly searchInput = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
   readonly close = output<void>();
 
   private payloadApi = inject(PayloadApiService);
@@ -300,7 +300,7 @@ export class SearchModalComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     // Focus the search input when modal opens
-    this.searchInput.nativeElement.focus();
+    this.searchInput().nativeElement.focus();
 
     // Set up search debouncing
     this.subscription.add(
