@@ -55,7 +55,6 @@ export type DateFormatType =
 
 @Pipe({
   name: 'dateFormat',
-  standalone: true,
   pure: true,
 })
 export class DateFormatPipe implements PipeTransform {

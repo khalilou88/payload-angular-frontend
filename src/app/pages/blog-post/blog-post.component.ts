@@ -1,4 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
@@ -10,7 +17,6 @@ import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-bloc
 
 @Component({
   selector: 'app-blog-post',
-  standalone: true,
   imports: [CommonModule, RouterModule, LayoutRendererComponent, HeroBlockComponent],
   template: `
     @if (post(); as postData) {
@@ -243,6 +249,8 @@ import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-bloc
       </div>
     }
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BlogPostComponent implements OnInit {
   private route = inject(ActivatedRoute);

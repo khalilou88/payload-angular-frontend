@@ -1,4 +1,11 @@
-import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  PLATFORM_ID,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -7,7 +14,6 @@ import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
   template: `
     <div class="min-h-screen flex flex-col bg-white dark:bg-gray-900">
@@ -24,6 +30,8 @@ import { FooterComponent } from './components/footer/footer.component';
     '(window:keydown.meta.k)': 'handleKeyboardShortcut($event)',
     '(window:keydown.ctrl.k)': 'handleKeyboardShortcut($event)',
   },
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App implements OnInit {
   private router = inject(Router);

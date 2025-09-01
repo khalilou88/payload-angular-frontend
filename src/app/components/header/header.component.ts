@@ -1,4 +1,13 @@
-import { Component, OnInit, inject, signal, computed, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  signal,
+  computed,
+  PLATFORM_ID,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
@@ -9,7 +18,6 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [CommonModule, RouterModule, SearchModalComponent],
   template: `
     <header
@@ -250,6 +258,8 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
       }
     </header>
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   private payloadApi = inject(PayloadApiService);

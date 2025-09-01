@@ -1,4 +1,12 @@
-import { Component, Input, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../../services/payload-api.service';
@@ -7,7 +15,6 @@ import { ArchiveBlock, Post } from '../../../types/payload.types';
 
 @Component({
   selector: 'app-archive-block',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
     @if (archive) {
@@ -187,6 +194,8 @@ import { ArchiveBlock, Post } from '../../../types/payload.types';
       </section>
     }
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArchiveBlockComponent implements OnInit {
   @Input() archive!: ArchiveBlock;

@@ -67,7 +67,6 @@ export interface IntersectionStatus {
 
 @Directive({
   selector: '[appIntersectionObserver]',
-  standalone: true,
 })
 export class IntersectionObserverDirective implements OnInit, OnDestroy {
   @Input() root: Element | null = null;
@@ -180,7 +179,6 @@ export class IntersectionObserverDirective implements OnInit, OnDestroy {
 // Additional utility directive for common use cases
 @Directive({
   selector: '[appVisibilityTracker]',
-  standalone: true,
 })
 export class VisibilityTrackerDirective implements OnInit, OnDestroy {
   @Input() visibilityThreshold = 0.5;
@@ -273,7 +271,6 @@ export class VisibilityTrackerDirective implements OnInit, OnDestroy {
 // Directive for scroll-triggered animations
 @Directive({
   selector: '[appScrollAnimation]',
-  standalone: true,
 })
 export class ScrollAnimationDirective implements OnInit, OnDestroy {
   @Input() animationClass = 'animate-fade-in-up';

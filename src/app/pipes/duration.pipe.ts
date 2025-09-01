@@ -2,7 +2,6 @@ import { Pipe, PipeTransform, inject, LOCALE_ID } from '@angular/core';
 
 @Pipe({
   name: 'duration',
-  standalone: true,
   pure: true,
 })
 export class DurationPipe implements PipeTransform {

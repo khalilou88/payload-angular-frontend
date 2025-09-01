@@ -1,4 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
@@ -6,7 +13,6 @@ import { SearchResult } from '../../types/payload.types';
 
 @Component({
   selector: 'app-search',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
     <div class="py-16 md:py-24 bg-white dark:bg-gray-900">
@@ -43,6 +49,8 @@ import { SearchResult } from '../../types/payload.types';
       </div>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnInit {
   private route = inject(ActivatedRoute);

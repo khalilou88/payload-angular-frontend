@@ -3,7 +3,6 @@ import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
   selector: '[appLazyLoad]',
-  standalone: true,
 })
 export class LazyLoadDirective implements OnInit {
   @Input() appLazyLoad!: string;

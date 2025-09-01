@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutBlocks } from '../../types/payload.types';
 import { HeroBlockComponent } from '../blocks/hero-block/hero-block.component';
@@ -9,7 +9,6 @@ import { ArchiveBlockComponent } from '../blocks/archive-block/archive-block.com
 
 @Component({
   selector: 'app-layout-renderer',
-  standalone: true,
   imports: [
     CommonModule,
     HeroBlockComponent,
@@ -41,6 +40,8 @@ import { ArchiveBlockComponent } from '../blocks/archive-block/archive-block.com
       }
     }
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutRendererComponent {
   @Input() layout!: LayoutBlocks[] | undefined;

@@ -1,4 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
@@ -9,7 +16,6 @@ import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-bloc
 
 @Component({
   selector: 'app-page',
-  standalone: true,
   imports: [CommonModule, LayoutRendererComponent, HeroBlockComponent],
   template: `
     @if (page(); as pageData) {
@@ -56,6 +62,8 @@ import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-bloc
       </div>
     }
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageComponent implements OnInit {
   private route = inject(ActivatedRoute);

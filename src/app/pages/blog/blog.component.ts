@@ -1,4 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
@@ -8,7 +15,6 @@ import { Post, Category, PayloadResponse } from '../../types/payload.types';
 
 @Component({
   selector: 'app-blog',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
     <div class="bg-white dark:bg-gray-900">
@@ -237,6 +243,8 @@ import { Post, Category, PayloadResponse } from '../../types/payload.types';
       </section>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BlogComponent implements OnInit {
   private route = inject(ActivatedRoute);

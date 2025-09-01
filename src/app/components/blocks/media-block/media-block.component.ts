@@ -1,11 +1,16 @@
-import { Component, Input, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewEncapsulation,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LexicalRendererService } from '../../../services/lexical-renderer.service';
 import { MediaBlock } from '../../../types/payload.types';
 
 @Component({
   selector: 'app-media-block',
-  standalone: true,
   imports: [CommonModule],
   template: `
     @if (mediaBlock && mediaBlock.media) {
@@ -99,6 +104,8 @@ import { MediaBlock } from '../../../types/payload.types';
       </section>
     }
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaBlockComponent {
   @Input() mediaBlock!: MediaBlock;

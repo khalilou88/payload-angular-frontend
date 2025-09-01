@@ -1,4 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PayloadApiService } from '../../services/payload-api.service';
 import { SeoService } from '../../services/seo.service';
@@ -9,7 +16,6 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
   imports: [CommonModule, LayoutRendererComponent, HeroBlockComponent],
   template: `
     @if (page(); as pageData) {
@@ -102,6 +108,8 @@ import { environment } from '../../../environments/environment';
       </section>
     }
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
   private payloadApi = inject(PayloadApiService);

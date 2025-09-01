@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+  signal,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HeroBlockComponent } from '../../components/blocks/hero-block/hero-block.component';
 import { LayoutRendererComponent } from '../../components/layout-renderer/layout-renderer.component';
@@ -9,7 +16,6 @@ import { Post } from '../../types/payload.types';
 
 @Component({
   selector: 'app-preview-post',
-  standalone: true,
   imports: [CommonModule, RouterModule, LayoutRendererComponent, HeroBlockComponent],
   template: `
     <!-- Preview Banner -->
@@ -300,6 +306,8 @@ import { Post } from '../../types/payload.types';
       </div>
     }
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PreviewPostComponent implements OnInit {
   private route = inject(ActivatedRoute);

@@ -2,7 +2,6 @@ import { inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'humanDate',
-  standalone: true,
   pure: true,
 })
 export class HumanDatePipe implements PipeTransform {

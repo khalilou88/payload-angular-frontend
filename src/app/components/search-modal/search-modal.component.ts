@@ -9,6 +9,8 @@ import {
   ElementRef,
   AfterViewInit,
   OnDestroy,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +23,6 @@ import { Subject, of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-modal',
-  standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   template: `
     <div class="p-6">
@@ -282,6 +283,8 @@ import { Subject, of, Subscription } from 'rxjs';
       }
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchModalComponent implements AfterViewInit, OnDestroy {
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;

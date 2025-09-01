@@ -1,4 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PayloadApiService } from '../../services/payload-api.service';
@@ -7,7 +14,6 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
     <footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
@@ -188,6 +194,8 @@ import { environment } from '../../../environments/environment';
       </div>
     </footer>
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent implements OnInit {
   private payloadApi = inject(PayloadApiService);

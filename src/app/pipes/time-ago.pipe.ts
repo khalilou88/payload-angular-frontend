@@ -5,7 +5,6 @@ import { DateFormatPipe } from './date-format.pipe';
 // Additional specialized pipes
 @Pipe({
   name: 'timeAgo',
-  standalone: true,
   pure: true,
 })
 export class TimeAgoPipe implements PipeTransform {

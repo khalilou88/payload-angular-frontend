@@ -1,11 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-not-found',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
     <div class="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
@@ -167,6 +172,8 @@ import { SeoService } from '../../services/seo.service';
       </div>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFoundComponent implements OnInit {
   private seoService = inject(SeoService);

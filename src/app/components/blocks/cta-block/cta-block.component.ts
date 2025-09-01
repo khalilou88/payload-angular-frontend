@@ -1,4 +1,10 @@
-import { Component, Input, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewEncapsulation,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LexicalRendererService } from '../../../services/lexical-renderer.service';
@@ -6,7 +12,6 @@ import { CallToActionBlock } from '../../../types/payload.types';
 
 @Component({
   selector: 'app-cta-block',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
     @if (cta) {
@@ -108,6 +113,8 @@ import { CallToActionBlock } from '../../../types/payload.types';
       </section>
     }
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CtaBlockComponent {
   @Input() cta!: CallToActionBlock;

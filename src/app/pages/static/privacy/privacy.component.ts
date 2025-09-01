@@ -1,10 +1,15 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SeoService } from '../../../services/seo.service';
 
 @Component({
   selector: 'app-privacy',
-  standalone: true,
   imports: [CommonModule],
   template: `
     <div class="py-16 md:py-24 bg-white dark:bg-gray-900">
@@ -33,6 +38,8 @@ import { SeoService } from '../../../services/seo.service';
       </div>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PrivacyComponent implements OnInit {
   private seoService = inject(SeoService);
