@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 interface LexicalNode {
@@ -57,7 +57,7 @@ interface RootNode extends LexicalNode {
   providedIn: 'root',
 })
 export class LexicalRendererService {
-  constructor(private sanitizer: DomSanitizer) {}
+  private sanitizer = inject(DomSanitizer);
 
   render(lexicalData: any): SafeHtml {
     if (!lexicalData || !lexicalData.root) {
