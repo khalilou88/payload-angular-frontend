@@ -298,8 +298,12 @@ export class BlogComponent implements OnInit {
       params['where[categories][in]'] = this.selectedCategory();
     }
 
-    this.payloadApi.getPosts(params).subscribe({
+    console.log(params);
+
+    this.payloadApi.getPosts().subscribe({
       next: (response) => {
+        console.log(response);
+
         if (append) {
           this.posts.update((current) => [...current, ...response.docs]);
         } else {
