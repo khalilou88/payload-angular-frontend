@@ -53,10 +53,40 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
             }
 
             <a
+              routerLink="/about"
+              class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors"
+            >
+              About
+            </a>
+            <a
+              routerLink="/services"
+              class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors"
+            >
+              Services
+            </a>
+            <a
               routerLink="/blog"
               class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors"
             >
               Blog
+            </a>
+            <a
+              routerLink="/team"
+              class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors"
+            >
+              Team
+            </a>
+            <a
+              routerLink="/careers"
+              class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors"
+            >
+              Careers
+            </a>
+            <a
+              routerLink="/contact"
+              class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors"
+            >
+              Contact
             </a>
           </nav>
 

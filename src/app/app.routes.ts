@@ -95,6 +95,34 @@ export const routes: Routes = [
 
   // Static pages
   {
+    path: 'about',
+    loadComponent: () =>
+      import('./pages/static/about/about.component').then((m) => m.AboutComponent),
+  },
+  {
+    path: 'services',
+    loadComponent: () =>
+      import('./pages/static/services/services.component').then((m) => m.ServicesComponent),
+  },
+  {
+    path: 'contact',
+    loadComponent: () =>
+      import('./pages/static/contact/contact.component').then((m) => m.ContactComponent),
+  },
+  {
+    path: 'faq',
+    loadComponent: () => import('./pages/static/faq/faq.component').then((m) => m.FAQComponent),
+  },
+  {
+    path: 'team',
+    loadComponent: () => import('./pages/static/team/team.component').then((m) => m.TeamComponent),
+  },
+  {
+    path: 'careers',
+    loadComponent: () =>
+      import('./pages/static/careers/careers.component').then((m) => m.CareersComponent),
+  },
+  {
     path: 'privacy',
     loadComponent: () =>
       import('./pages/static/privacy/privacy.component').then((m) => m.PrivacyComponent),
