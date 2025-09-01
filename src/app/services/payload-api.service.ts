@@ -77,6 +77,29 @@ export class PayloadApiService {
       .pipe(catchError(this.handleError));
   }
 
+  forgotPassword(email: string): Observable<{ message: string }> {
+    return this.http
+      .post<{ message: string }>(`${this.baseUrl}/users/forgot-password`, { email })
+      .pipe(catchError(this.handleError));
+  }
+
+  resetPassword(token: string, password: string): Observable<AuthResponse> {
+    return this.http
+      .post<AuthResponse>(`${this.baseUrl}/users/reset-password`, {
+        token,
+        password,
+      })
+      .pipe(
+        tap((response) => {
+          if (response.token && isPlatformBrowser(this.platformId)) {
+            localStorage.setItem('payload-token', response.token);
+            this.currentUserSubject.next(response.user || null);
+          }
+        }),
+        catchError(this.handleError),
+      );
+  }
+
   checkAuthStatus(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 

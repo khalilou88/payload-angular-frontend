@@ -171,7 +171,10 @@ import { environment } from '../../../../environments/environment';
             </div>
 
             <div class="text-sm">
-              <a href="#" class="font-medium text-primary hover:text-primary/80 transition-colors">
+              <a
+                routerLink="/forgot-password"
+                class="font-medium text-primary hover:text-primary/80 transition-colors"
+              >
                 Forgot your password?
               </a>
             </div>
