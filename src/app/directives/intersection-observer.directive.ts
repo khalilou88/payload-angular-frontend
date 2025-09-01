@@ -1,14 +1,13 @@
 import {
   Directive,
   ElementRef,
-  EventEmitter,
   OnInit,
   OnDestroy,
-  Output,
   inject,
   PLATFORM_ID,
   NgZone,
   input,
+  output,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -75,9 +74,9 @@ export class IntersectionObserverDirective implements OnInit, OnDestroy {
   readonly triggerOnce = input(false);
   readonly disabled = input(false);
 
-  @Output() intersecting = new EventEmitter<IntersectionStatus>();
-  @Output() notIntersecting = new EventEmitter<IntersectionStatus>();
-  @Output() statusChange = new EventEmitter<IntersectionStatus>();
+  readonly intersecting = output<IntersectionStatus>();
+  readonly notIntersecting = output<IntersectionStatus>();
+  readonly statusChange = output<IntersectionStatus>();
 
   private elementRef = inject(ElementRef);
   private platformId = inject(PLATFORM_ID);
@@ -185,9 +184,9 @@ export class VisibilityTrackerDirective implements OnInit, OnDestroy {
   readonly trackOnce = input(false);
   readonly rootMargin = input('0px');
 
-  @Output() visible = new EventEmitter<Element>();
-  @Output() hidden = new EventEmitter<Element>();
-  @Output() visibilityChange = new EventEmitter<{
+  readonly visible = output<Element>();
+  readonly hidden = output<Element>();
+  readonly visibilityChange = output<{
     element: Element;
     isVisible: boolean;
     ratio: number;

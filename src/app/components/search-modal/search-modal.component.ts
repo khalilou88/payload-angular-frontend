@@ -1,7 +1,5 @@
 import {
   Component,
-  Output,
-  EventEmitter,
   inject,
   signal,
   computed,
@@ -11,6 +9,7 @@ import {
   OnDestroy,
   ViewEncapsulation,
   ChangeDetectionStrategy,
+  output,
 } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
@@ -288,7 +287,7 @@ import { Subject, of, Subscription } from 'rxjs';
 })
 export class SearchModalComponent implements AfterViewInit, OnDestroy {
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
-  @Output() close = new EventEmitter<void>();
+  readonly close = output<void>();
 
   private payloadApi = inject(PayloadApiService);
   private lexicalRenderer = inject(LexicalRendererService);
