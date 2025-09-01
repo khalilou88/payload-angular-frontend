@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   ViewEncapsulation,
   inject,
+  input,
 } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
@@ -14,14 +14,14 @@ import { HeroBlock } from '../../../types/payload.types';
   selector: 'app-hero-block',
   imports: [RouterModule],
   template: `
-    @if (hero) {
+    @if (hero()) {
       <section class="relative overflow-hidden" [class]="getHeroClasses()">
         <!-- Background Media -->
-        @if (hero.media) {
+        @if (hero().media) {
           <div class="absolute inset-0 z-0">
             <img
-              [src]="hero.media.url"
-              [alt]="hero.media.alt || 'Hero background'"
+              [src]="hero().media?.url"
+              [alt]="hero().media?.alt || 'Hero background'"
               class="h-full w-full object-cover"
               [style.object-position]="getObjectPosition()"
             />
@@ -34,7 +34,7 @@ import { HeroBlock } from '../../../types/payload.types';
           <div [class]="getContentClasses()">
             <div class="max-w-4xl" [class]="getTextAlignmentClass()">
               <!-- Rich Text Content -->
-              @if (hero.richText) {
+              @if (hero().richText) {
                 <div
                   class="prose prose-lg max-w-none"
                   [class]="getProseClasses()"
@@ -43,9 +43,9 @@ import { HeroBlock } from '../../../types/payload.types';
               }
 
               <!-- Action Links -->
-              @if (hero.links && hero.links.length > 0) {
+              @if (hero().links && hero().links?.length! > 0) {
                 <div class="flex flex-wrap gap-4 mt-8">
-                  @for (linkItem of hero.links; track $index) {
+                  @for (linkItem of hero().links; track $index) {
                     <a
                       [href]="getLinkUrl(linkItem.link)"
                       [target]="linkItem.link.newTab ? '_blank' : '_self'"
@@ -77,7 +77,7 @@ import { HeroBlock } from '../../../types/payload.types';
         </div>
 
         <!-- Scroll Indicator (only for fullscreen) -->
-        @if (hero.type === 'fullscreen') {
+        @if (hero().type === 'fullscreen') {
           <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
             <div class="animate-bounce">
               <svg
@@ -103,12 +103,12 @@ import { HeroBlock } from '../../../types/payload.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroBlockComponent {
-  @Input() hero!: HeroBlock;
+  readonly hero = input.required<HeroBlock>();
 
   private lexicalRenderer = inject(LexicalRendererService);
 
   getHeroClasses(): string {
-    const type = this.hero.type || 'default';
+    const type = this.hero().type || 'default';
 
     const baseClasses = 'flex items-center';
 
@@ -123,7 +123,7 @@ export class HeroBlockComponent {
   }
 
   getContentClasses(): string {
-    const type = this.hero.type || 'default';
+    const type = this.hero().type || 'default';
 
     switch (type) {
       case 'minimal':
@@ -134,7 +134,7 @@ export class HeroBlockComponent {
   }
 
   getTextAlignmentClass(): string {
-    const type = this.hero.type || 'default';
+    const type = this.hero().type || 'default';
 
     switch (type) {
       case 'minimal':
@@ -145,8 +145,8 @@ export class HeroBlockComponent {
   }
 
   getProseClasses(): string {
-    const hasMedia = !!this.hero.media;
-    const type = this.hero.type || 'default';
+    const hasMedia = !!this.hero().media;
+    const type = this.hero().type || 'default';
 
     if (hasMedia || type === 'fullscreen') {
       return 'prose-white [&>h1]:text-white [&>h2]:text-white [&>h3]:text-white [&>h4]:text-white [&>h5]:text-white [&>h6]:text-white [&>p]:text-white/90';
@@ -156,7 +156,7 @@ export class HeroBlockComponent {
   }
 
   getObjectPosition(): string {
-    const media = this.hero.media;
+    const media = this.hero().media;
     if (media?.focalX !== undefined && media?.focalY !== undefined) {
       return `${media.focalX * 100}% ${media.focalY * 100}%`;
     }
@@ -164,8 +164,9 @@ export class HeroBlockComponent {
   }
 
   renderRichText() {
-    if (!this.hero.richText) return '';
-    return this.lexicalRenderer.render(this.hero.richText);
+    const hero = this.hero();
+    if (!hero.richText) return '';
+    return this.lexicalRenderer.render(hero.richText);
   }
 
   getLinkUrl(link: any): string {
@@ -191,7 +192,7 @@ export class HeroBlockComponent {
       case 'secondary':
         return `${baseClasses} bg-secondary text-white hover:bg-secondary/90 focus:ring-secondary`;
       case 'outline':
-        const hasMedia = !!this.hero.media;
+        const hasMedia = !!this.hero().media;
         if (hasMedia) {
           return `${baseClasses} border-2 border-white text-white hover:bg-white hover:text-gray-900 focus:ring-white`;
         }

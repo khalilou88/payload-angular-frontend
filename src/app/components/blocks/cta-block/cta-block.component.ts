@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   ViewEncapsulation,
   inject,
+  input,
 } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
@@ -14,7 +14,7 @@ import { CallToActionBlock } from '../../../types/payload.types';
   selector: 'app-cta-block',
   imports: [RouterModule],
   template: `
-    @if (cta) {
+    @if (cta()) {
       <section
         class="py-16 md:py-24 bg-gradient-to-br from-primary to-secondary relative overflow-hidden"
       >
@@ -39,16 +39,16 @@ import { CallToActionBlock } from '../../../types/payload.types';
 
         <div class="container-custom relative z-10">
           <div class="max-w-4xl mx-auto text-center">
-            @if (cta.richText) {
+            @if (cta().richText) {
               <div
                 class="prose prose-lg prose-white max-w-none [&>h1]:text-white [&>h2]:text-white [&>h3]:text-white [&>h4]:text-white [&>h5]:text-white [&>h6]:text-white [&>p]:text-white/90 [&>p]:text-xl"
                 [innerHTML]="renderRichText()"
               ></div>
             }
 
-            @if (cta.links && cta.links.length > 0) {
+            @if (cta().links && cta().links?.length! > 0) {
               <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-                @for (linkItem of cta.links; track $index) {
+                @for (linkItem of cta().links; track $index) {
                   <a
                     [href]="getLinkUrl(linkItem.link)"
                     [target]="linkItem.link.newTab ? '_blank' : '_self'"
@@ -117,13 +117,14 @@ import { CallToActionBlock } from '../../../types/payload.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CtaBlockComponent {
-  @Input() cta!: CallToActionBlock;
+  readonly cta = input.required<CallToActionBlock>();
 
   private lexicalRenderer = inject(LexicalRendererService);
 
   renderRichText() {
-    if (!this.cta.richText) return '';
-    return this.lexicalRenderer.render(this.cta.richText);
+    const cta = this.cta();
+    if (!cta.richText) return '';
+    return this.lexicalRenderer.render(cta.richText);
   }
 
   getLinkUrl(link: any): string {

@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   ViewEncapsulation,
   inject,
+  input,
 } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
@@ -14,11 +14,11 @@ import { ContentBlock } from '../../../types/payload.types';
   selector: 'app-content-block',
   imports: [RouterModule],
   template: `
-    @if (content && content.columns) {
+    @if (content() && content().columns) {
       <section class="py-16 md:py-24">
         <div class="container-custom">
           <div [class]="getGridClasses()">
-            @for (column of content.columns; track $index) {
+            @for (column of content().columns; track $index) {
               <div [class]="getColumnClasses(column.size || 'full')">
                 @if (column.richText) {
                   <div
@@ -79,14 +79,15 @@ import { ContentBlock } from '../../../types/payload.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentBlockComponent {
-  @Input() content!: ContentBlock;
+  readonly content = input.required<ContentBlock>();
 
   private lexicalRenderer = inject(LexicalRendererService);
 
   getGridClasses(): string {
-    if (!this.content.columns) return '';
+    const content = this.content();
+    if (!content.columns) return '';
 
-    const columnCount = this.content.columns.length;
+    const columnCount = content.columns.length;
 
     if (columnCount === 1) {
       return 'max-w-4xl mx-auto';
@@ -108,7 +109,8 @@ export class ContentBlockComponent {
     const baseClasses = '';
 
     // If we have explicit sizing and it's a grid layout
-    if (this.content.columns && this.content.columns.length > 1) {
+    const content = this.content();
+    if (content.columns && content.columns.length > 1) {
       switch (size) {
         case 'oneThird':
           return `${baseClasses} lg:col-span-1`;

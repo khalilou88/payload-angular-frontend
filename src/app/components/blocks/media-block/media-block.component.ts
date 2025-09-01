@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   ViewEncapsulation,
   inject,
+  input,
 } from '@angular/core';
 
 import { LexicalRendererService } from '../../../services/lexical-renderer.service';
@@ -13,14 +13,14 @@ import { MediaBlock } from '../../../types/payload.types';
   selector: 'app-media-block',
   imports: [],
   template: `
-    @if (mediaBlock && mediaBlock.media) {
+    @if (mediaBlock() && mediaBlock().media) {
       <section [class]="getSectionClasses()">
-        @if (mediaBlock.position === 'fullscreen') {
+        @if (mediaBlock().position === 'fullscreen') {
           <!-- Fullscreen Media -->
           <div class="relative h-screen overflow-hidden">
             @if (isVideo()) {
               <video
-                [src]="mediaBlock.media.url"
+                [src]="mediaBlock().media.url"
                 [poster]="getVideoPoster()"
                 class="absolute inset-0 h-full w-full object-cover"
                 autoplay
@@ -33,14 +33,14 @@ import { MediaBlock } from '../../../types/payload.types';
             } @else {
               <img
                 [src]="getImageUrl()"
-                [alt]="mediaBlock.media.alt || 'Media'"
+                [alt]="mediaBlock().media.alt || 'Media'"
                 class="absolute inset-0 h-full w-full object-cover"
                 [style.object-position]="getObjectPosition()"
                 loading="lazy"
               />
             }
 
-            @if (mediaBlock.caption) {
+            @if (mediaBlock().caption) {
               <div
                 class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent"
               >
@@ -63,7 +63,7 @@ import { MediaBlock } from '../../../types/payload.types';
                 >
                   @if (isVideo()) {
                     <video
-                      [src]="mediaBlock.media.url"
+                      [src]="mediaBlock().media.url"
                       [poster]="getVideoPoster()"
                       class="w-full h-auto"
                       controls
@@ -74,7 +74,7 @@ import { MediaBlock } from '../../../types/payload.types';
                   } @else {
                     <img
                       [src]="getImageUrl()"
-                      [alt]="mediaBlock.media.alt || 'Media'"
+                      [alt]="mediaBlock().media.alt || 'Media'"
                       class="w-full h-auto"
                       [style.object-position]="getObjectPosition()"
                       loading="lazy"
@@ -89,7 +89,7 @@ import { MediaBlock } from '../../../types/payload.types';
                   }
                 </div>
 
-                @if (mediaBlock.caption) {
+                @if (mediaBlock().caption) {
                   <figcaption class="mt-6">
                     <div
                       class="prose prose-gray dark:prose-invert max-w-none text-center"
@@ -108,20 +108,20 @@ import { MediaBlock } from '../../../types/payload.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaBlockComponent {
-  @Input() mediaBlock!: MediaBlock;
+  readonly mediaBlock = input.required<MediaBlock>();
 
   private lexicalRenderer = inject(LexicalRendererService);
 
   getSectionClasses(): string {
-    return this.mediaBlock.position === 'fullscreen' ? '' : 'bg-white dark:bg-gray-900';
+    return this.mediaBlock().position === 'fullscreen' ? '' : 'bg-white dark:bg-gray-900';
   }
 
   isVideo(): boolean {
-    return this.mediaBlock.media.mimeType?.startsWith('video/') || false;
+    return this.mediaBlock().media.mimeType?.startsWith('video/') || false;
   }
 
   getImageUrl(): string {
-    const media = this.mediaBlock.media;
+    const media = this.mediaBlock().media;
 
     // Use feature size if available for better quality
     if (media.sizes?.feature?.url) {
@@ -133,7 +133,7 @@ export class MediaBlockComponent {
 
   getVideoPoster(): string | undefined {
     // If there's a thumbnail size available, use it as poster
-    const media = this.mediaBlock.media;
+    const media = this.mediaBlock().media;
     if (media.sizes?.card?.url) {
       return media.sizes.card.url;
     }
@@ -142,7 +142,7 @@ export class MediaBlockComponent {
   }
 
   getObjectPosition(): string {
-    const media = this.mediaBlock.media;
+    const media = this.mediaBlock().media;
     if (media.focalX !== undefined && media.focalY !== undefined) {
       return `${media.focalX * 100}% ${media.focalY * 100}%`;
     }
@@ -150,7 +150,8 @@ export class MediaBlockComponent {
   }
 
   renderCaption() {
-    if (!this.mediaBlock.caption) return '';
-    return this.lexicalRenderer.render(this.mediaBlock.caption);
+    const mediaBlock = this.mediaBlock();
+    if (!mediaBlock.caption) return '';
+    return this.lexicalRenderer.render(mediaBlock.caption);
   }
 }

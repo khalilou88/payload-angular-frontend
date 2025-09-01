@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import { LayoutBlocks } from '../../types/payload.types';
 import { HeroBlockComponent } from '../blocks/hero-block/hero-block.component';
@@ -17,8 +17,8 @@ import { ArchiveBlockComponent } from '../blocks/archive-block/archive-block.com
     ArchiveBlockComponent,
   ],
   template: `
-    @if (layout && layout.length > 0) {
-      @for (block of layout; track block.id) {
+    @if (layout() && layout()?.length! > 0) {
+      @for (block of layout(); track block.id) {
         @switch (block.blockType) {
           @case ('hero') {
             <app-hero-block [hero]="block" />
@@ -43,5 +43,5 @@ import { ArchiveBlockComponent } from '../blocks/archive-block/archive-block.com
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutRendererComponent {
-  @Input() layout!: LayoutBlocks[] | undefined;
+  readonly layout = input.required<LayoutBlocks[] | undefined>();
 }
