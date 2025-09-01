@@ -251,7 +251,7 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
         <div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" (click)="closeSearch()">
           <div class="container-custom pt-20" (click)="$event.stopPropagation()">
             <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-xl">
-              <app-search-modal (close)="closeSearch()"></app-search-modal>
+              <app-search-modal (close)="closeSearch()" />
             </div>
           </div>
         </div>
