@@ -1,11 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
   ViewEncapsulation,
   inject,
   signal,
+  input,
 } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
@@ -17,7 +17,7 @@ import { ArchiveBlock, Post } from '../../../types/payload.types';
   selector: 'app-archive-block',
   imports: [RouterModule],
   template: `
-    @if (archive) {
+    @if (archive()) {
       <section class="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
         <div class="container-custom">
           @if (posts().length > 0) {
@@ -198,7 +198,7 @@ import { ArchiveBlock, Post } from '../../../types/payload.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArchiveBlockComponent implements OnInit {
-  @Input() archive!: ArchiveBlock;
+  readonly archive = input.required<ArchiveBlock>();
 
   private payloadApi = inject(PayloadApiService);
   private lexicalRenderer = inject(LexicalRendererService);
@@ -213,14 +213,15 @@ export class ArchiveBlockComponent implements OnInit {
   }
 
   private loadPosts() {
-    if (this.archive.populateBy === 'selection' && this.archive.selectedDocs) {
+    const archive = this.archive();
+    if (archive.populateBy === 'selection' && archive.selectedDocs) {
       // Use pre-selected posts
-      this.posts.set(this.archive.selectedDocs);
+      this.posts.set(archive.selectedDocs);
       this.hasMore.set(false);
-    } else if (this.archive.populatedDocs) {
+    } else if (archive.populatedDocs) {
       // Use pre-populated posts from Payload
-      this.posts.set(this.archive.populatedDocs);
-      this.hasMore.set((this.archive.populatedDocsTotal || 0) > this.archive.populatedDocs.length);
+      this.posts.set(archive.populatedDocs);
+      this.hasMore.set((archive.populatedDocsTotal || 0) > archive.populatedDocs.length);
     } else {
       // Fetch posts dynamically
       this.fetchPosts();
@@ -231,14 +232,15 @@ export class ArchiveBlockComponent implements OnInit {
     this.isLoading.set(true);
 
     const params: any = {
-      limit: this.archive.limit || 6,
+      limit: this.archive().limit || 6,
       page: page,
       sort: '-publishedAt',
     };
 
     // Add category filter if specified
-    if (this.archive.categories && this.archive.categories.length > 0) {
-      params['where[categories][in]'] = this.archive.categories.map((cat) => cat.id).join(',');
+    const archive = this.archive();
+    if (archive.categories && archive.categories.length > 0) {
+      params['where[categories][in]'] = archive.categories.map((cat) => cat.id).join(',');
     }
 
     this.payloadApi.getPosts(params).subscribe({

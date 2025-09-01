@@ -2,13 +2,13 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  Input,
   OnInit,
   OnDestroy,
   Output,
   inject,
   PLATFORM_ID,
   NgZone,
+  input,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -69,11 +69,11 @@ export interface IntersectionStatus {
   selector: '[appIntersectionObserver]',
 })
 export class IntersectionObserverDirective implements OnInit, OnDestroy {
-  @Input() root: Element | null = null;
-  @Input() rootMargin = '0px';
-  @Input() threshold: number | number[] = 0;
-  @Input() triggerOnce = false;
-  @Input() disabled = false;
+  readonly root = input<Element | null>(null);
+  readonly rootMargin = input('0px');
+  readonly threshold = input<number | number[]>(0);
+  readonly triggerOnce = input(false);
+  readonly disabled = input(false);
 
   @Output() intersecting = new EventEmitter<IntersectionStatus>();
   @Output() notIntersecting = new EventEmitter<IntersectionStatus>();
@@ -87,7 +87,7 @@ export class IntersectionObserverDirective implements OnInit, OnDestroy {
   private hasTriggered = false;
 
   ngOnInit() {
-    if (!isPlatformBrowser(this.platformId) || this.disabled) {
+    if (!isPlatformBrowser(this.platformId) || this.disabled()) {
       return;
     }
 
@@ -103,9 +103,9 @@ export class IntersectionObserverDirective implements OnInit, OnDestroy {
     if (!isPlatformBrowser(this.platformId)) return;
 
     const options: IntersectionObserverInit = {
-      root: this.root,
-      rootMargin: this.rootMargin,
-      threshold: this.threshold,
+      root: this.root(),
+      rootMargin: this.rootMargin(),
+      threshold: this.threshold(),
     };
 
     this.observer = new IntersectionObserver((entries) => {
@@ -145,7 +145,7 @@ export class IntersectionObserverDirective implements OnInit, OnDestroy {
         this.hasTriggered = true;
 
         // Stop observing if triggerOnce is true
-        if (this.triggerOnce) {
+        if (this.triggerOnce()) {
           this.stopObserving();
         }
       } else {
@@ -156,7 +156,7 @@ export class IntersectionObserverDirective implements OnInit, OnDestroy {
 
   // Public methods for external control
   public startObserving$() {
-    if (!this.observer && !this.disabled) {
+    if (!this.observer && !this.disabled()) {
       this.createObserver();
     }
     this.startObserving();
@@ -169,7 +169,7 @@ export class IntersectionObserverDirective implements OnInit, OnDestroy {
   public reset() {
     this.hasTriggered = false;
     this.stopObserving();
-    if (!this.disabled) {
+    if (!this.disabled()) {
       this.createObserver();
       this.startObserving();
     }
@@ -181,9 +181,9 @@ export class IntersectionObserverDirective implements OnInit, OnDestroy {
   selector: '[appVisibilityTracker]',
 })
 export class VisibilityTrackerDirective implements OnInit, OnDestroy {
-  @Input() visibilityThreshold = 0.5;
-  @Input() trackOnce = false;
-  @Input() rootMargin = '0px';
+  readonly visibilityThreshold = input(0.5);
+  readonly trackOnce = input(false);
+  readonly rootMargin = input('0px');
 
   @Output() visible = new EventEmitter<Element>();
   @Output() hidden = new EventEmitter<Element>();
@@ -215,8 +215,8 @@ export class VisibilityTrackerDirective implements OnInit, OnDestroy {
 
   private createVisibilityObserver() {
     const options: IntersectionObserverInit = {
-      rootMargin: this.rootMargin,
-      threshold: [0, this.visibilityThreshold, 1],
+      rootMargin: this.rootMargin(),
+      threshold: [0, this.visibilityThreshold(), 1],
     };
 
     this.observer = new IntersectionObserver((entries) => {
@@ -241,7 +241,7 @@ export class VisibilityTrackerDirective implements OnInit, OnDestroy {
 
   private handleVisibilityChange(entries: IntersectionObserverEntry[]) {
     entries.forEach((entry) => {
-      const isVisible = entry.intersectionRatio >= this.visibilityThreshold;
+      const isVisible = entry.intersectionRatio >= this.visibilityThreshold();
       const element = entry.target;
 
       // Only emit if visibility actually changed
@@ -257,7 +257,7 @@ export class VisibilityTrackerDirective implements OnInit, OnDestroy {
         if (isVisible) {
           this.visible.emit(element);
 
-          if (this.trackOnce) {
+          if (this.trackOnce()) {
             this.stopTracking();
           }
         } else {
@@ -273,10 +273,10 @@ export class VisibilityTrackerDirective implements OnInit, OnDestroy {
   selector: '[appScrollAnimation]',
 })
 export class ScrollAnimationDirective implements OnInit, OnDestroy {
-  @Input() animationClass = 'animate-fade-in-up';
-  @Input() animationDelay = 0;
-  @Input() animationThreshold = 0.1;
-  @Input() animateOnce = true;
+  readonly animationClass = input('animate-fade-in-up');
+  readonly animationDelay = input(0);
+  readonly animationThreshold = input(0.1);
+  readonly animateOnce = input(true);
 
   private elementRef = inject(ElementRef);
   private platformId = inject(PLATFORM_ID);
@@ -304,7 +304,7 @@ export class ScrollAnimationDirective implements OnInit, OnDestroy {
 
   private createAnimationObserver() {
     const options: IntersectionObserverInit = {
-      threshold: this.animationThreshold,
+      threshold: this.animationThreshold(),
       rootMargin: '0px 0px -50px 0px', // Trigger slightly before element enters viewport
     };
 
@@ -330,11 +330,12 @@ export class ScrollAnimationDirective implements OnInit, OnDestroy {
 
   private handleAnimation(entries: IntersectionObserverEntry[]) {
     entries.forEach((entry) => {
-      if (entry.isIntersecting && (!this.hasAnimated || !this.animateOnce)) {
+      const animateOnce = this.animateOnce();
+      if (entry.isIntersecting && (!this.hasAnimated || !animateOnce)) {
         this.triggerAnimation(entry.target as HTMLElement);
         this.hasAnimated = true;
 
-        if (this.animateOnce) {
+        if (animateOnce) {
           this.stopObserving();
         }
       }
@@ -348,9 +349,10 @@ export class ScrollAnimationDirective implements OnInit, OnDestroy {
       element.style.transform = 'translateY(0)';
       element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
 
-      if (this.animationClass) {
-        element.classList.add(this.animationClass);
+      const animationClass = this.animationClass();
+      if (animationClass) {
+        element.classList.add(animationClass);
       }
-    }, this.animationDelay);
+    }, this.animationDelay());
   }
 }
